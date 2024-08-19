@@ -23,12 +23,17 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -37,7 +42,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.rememberAsyncImagePainter
 import com.example.newsfeed.data.dataSource.dto.Data
 import com.example.newsfeed.presentation.viewModel.NewsFeedsViewModel
+import com.example.newsfeedusingcompose.R
 import com.example.newsfeedusingcompose.presentation.common.BaseScaffold
+import com.example.newsfeedusingcompose.presentation.common.ErrorMessage
 import com.example.newsfeedusingcompose.presentation.core.theme.background
 import com.example.newsfeedusingcompose.presentation.core.theme.dimGrey
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -49,68 +56,74 @@ fun NewsFeedsView(
     viewModel: NewsFeedsViewModel,
     navigateToNextScreen: () -> Unit
 ) {
-    /*LaunchedEffect(key1 = null) {
-        delay(3000)
-        navigateToNextScreen()
-    }*/
     BaseScaffold(
         screenName = "News",
         shouldShowTopBar = true,
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(background)
-        ) {
-            LatestNewsFeed(viewModel)
-        }
+        LoadNewsFeeds(viewModel)
     }
 }
 
 @ExperimentalCoroutinesApi
 @Composable
-fun LatestNewsFeed(viewModel: NewsFeedsViewModel) {
+fun LoadNewsFeeds(viewModel: NewsFeedsViewModel) {
     val moviePagingItems: LazyPagingItems<Data> = viewModel.newsFeeds.collectAsLazyPagingItems()
+    var isLoading by remember { mutableStateOf(false) }
 
-    LazyColumn {
-        item { Spacer(modifier = Modifier.padding(4.dp)) }
-        items(moviePagingItems.itemCount) { index ->
-            PopulateItem(
-                data = moviePagingItems.get(index) ?: Data()
-            )
-        }
-        moviePagingItems.apply {
-            when {
-                loadState.refresh is LoadState.Loading -> {
-                    item { ProgressIndicator() }
-                }
-
-                loadState.refresh is LoadState.Error -> {
-                    val error = moviePagingItems.loadState.refresh as LoadState.Error
-                    item {
-                        /*ErrorMessage(
-                            modifier = Modifier.fillParentMaxSize(),
-                            message = error.error.localizedMessage!!,
-                            onClickRetry = { retry() })*/
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(background)
+    ) {
+        LazyColumn {
+            item { Spacer(modifier = Modifier.padding(4.dp)) }
+            items(moviePagingItems.itemCount) { index ->
+                PopulateItem(
+                    data = moviePagingItems.get(index) ?: Data()
+                )
+            }
+            moviePagingItems.apply {
+                when {
+                    loadState.refresh is LoadState.Loading -> {
+                        item {
+                            isLoading = true
+                        }
                     }
-                }
 
-                loadState.append is LoadState.Loading -> {
-                    item { ProgressIndicator() }
-                }
+                    loadState.refresh is LoadState.Error -> {
+                        isLoading = false
+                        val error = moviePagingItems.loadState.refresh as LoadState.Error
+                        item {
+                            ErrorMessage(
+                                modifier = Modifier.fillParentMaxSize(),
+                                message = stringResource(id = R.string.something_went_wrong),
+                                onClickRetry = { retry() })
+                        }
+                    }
 
-                loadState.append is LoadState.Error -> {
-                    val error = moviePagingItems.loadState.append as LoadState.Error
-                    item {
-                        /*ErrorMessage(
-                            modifier = Modifier,
-                            message = error.error.localizedMessage!!,
-                            onClickRetry = { retry() })*/
+                    loadState.append is LoadState.Loading -> {
+                        item {
+                            isLoading = true
+                        }
+                    }
+
+                    loadState.append is LoadState.Error -> {
+                        isLoading = false
+                        val error = moviePagingItems.loadState.append as LoadState.Error
+                        item {
+                            ErrorMessage(
+                                modifier = Modifier,
+                                message = error.error.localizedMessage!!,
+                                onClickRetry = { retry() })
+                        }
                     }
                 }
             }
+            item { Spacer(modifier = Modifier.padding(4.dp)) }
         }
-        item { Spacer(modifier = Modifier.padding(4.dp)) }
+        if (isLoading) {
+            ProgressIndicator()
+        }
     }
 }
 
@@ -177,8 +190,7 @@ private fun ProgressIndicator() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = dimGrey)
-            .fillMaxSize(),
+            .background(color = dimGrey),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -189,7 +201,5 @@ private fun ProgressIndicator() {
         )
     }
 }
-
-
 
 

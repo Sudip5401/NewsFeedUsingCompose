@@ -1,12 +1,12 @@
 package com.example.newsfeed.di
 
 import android.app.Application
+import com.example.newsfeed.core.AppDispatcher
+import com.example.newsfeed.core.Dispatcher
 import com.example.newsfeed.data.dataSource.ApiService
 import com.example.newsfeed.data.repository.NewsRepositoryImplementation
 import com.example.newsfeed.domain.repository.NewsRepository
-import com.example.newsfeed.core.AppDispatcher
 import com.example.newsfeed.utils.Constants
-import com.example.newsfeed.core.Dispatcher
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

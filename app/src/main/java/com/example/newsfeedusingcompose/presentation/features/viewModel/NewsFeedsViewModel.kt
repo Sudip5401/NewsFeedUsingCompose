@@ -16,11 +16,8 @@ class NewsFeedsViewModel @Inject constructor(
     private val newsFeedsUseCase: NewsFeedUseCase, dispatcher: Dispatcher
 ) : BaseViewModel(dispatcher) {
 
-//    internal var offsetValue = 0
     private val _newsFeeds = MutableStateFlow<PagingData<Data>>(value = PagingData.empty())
     val newsFeeds: MutableStateFlow<PagingData<Data>> get() = _newsFeeds
-
-    internal var feedList = mutableListOf<Data>()
 
     init {
         fetchFeeds()

@@ -8,4 +8,6 @@
     <string name="something_went_wrong">Something went wrong.Please try again.</string>
     <string name="error_unknown">Unknown error</string>
     <string name="error_unable_to_reach_server">"Couldn\'t reach server. Check your internet connection."</string>
+
+    <string name="retry">Retry</string>
 </resources>
