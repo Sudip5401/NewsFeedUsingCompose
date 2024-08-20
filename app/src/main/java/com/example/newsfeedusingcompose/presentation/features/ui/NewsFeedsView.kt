@@ -36,6 +36,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -48,6 +50,7 @@ import com.example.newsfeedusingcompose.presentation.common.BaseScaffold
 import com.example.newsfeedusingcompose.presentation.common.ErrorMessage
 import com.example.newsfeedusingcompose.presentation.core.theme.background
 import com.example.newsfeedusingcompose.presentation.core.theme.dimGrey
+import com.example.newsfeedusingcompose.presentation.features.ui.previewComponents.DataPreviewProvider
 import com.example.newsfeedusingcompose.utils.forwardingPainter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -69,9 +72,13 @@ fun NewsFeedsView(
     }
 }
 
+
 @ExperimentalCoroutinesApi
 @Composable
-fun LoadNewsFeeds(viewModel: NewsFeedsViewModel, navigateToNextScreen: (data: Data) -> Unit) {
+private fun LoadNewsFeeds(
+    viewModel: NewsFeedsViewModel,
+    navigateToNextScreen: (data: Data) -> Unit
+) {
     val moviePagingItems: LazyPagingItems<Data> = viewModel.newsFeeds.collectAsLazyPagingItems()
     var isLoading by remember { mutableStateOf(false) }
 
@@ -137,9 +144,13 @@ fun LoadNewsFeeds(viewModel: NewsFeedsViewModel, navigateToNextScreen: (data: Da
     }
 }
 
+@Preview(showBackground = true)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PopulateItem(data: Data, onClick: (data: Data) -> Unit) {
+private fun PopulateItem(
+    @PreviewParameter(DataPreviewProvider::class, 1) data: Data,
+    onClick: (data: Data) -> Unit
+) {
     Card(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -211,6 +222,9 @@ fun PopulateItem(data: Data, onClick: (data: Data) -> Unit) {
     }
 }
 
+
+
+@Preview(showBackground = true)
 @Composable
 private fun ProgressIndicator() {
     val strokeWidth = 5.dp

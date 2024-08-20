@@ -16,21 +16,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.core.content.res.ResourcesCompat
 import coil.compose.AsyncImage
 import com.example.newsfeed.data.dataSource.dto.Data
+import com.example.newsfeed.utils.Constants.Companion.DETAILS_AUTHOR_TEXT_VIEW_TAG
+import com.example.newsfeed.utils.Constants.Companion.DETAILS_COUNTRY_TEXT_VIEW_TAG
 import com.example.newsfeedusingcompose.R
+import com.example.newsfeedusingcompose.presentation.common.BackPressHandler
 import com.example.newsfeedusingcompose.presentation.common.BaseScaffold
 import com.example.newsfeedusingcompose.presentation.core.theme.background
-import com.example.newsfeedusingcompose.presentation.common.BackPressHandler
+import com.example.newsfeedusingcompose.presentation.features.ui.previewComponents.DataPreviewProvider
 import com.example.newsfeedusingcompose.utils.forwardingPainter
-import com.example.newsfeedusingcompose.utils.getPlaceholder
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -53,8 +55,10 @@ fun FeedDetailsView(
     }
 }
 
+
+@Preview(showBackground = true)
 @Composable
-fun ShowDetails(currentFeed: Data) {
+fun ShowDetails(@PreviewParameter(DataPreviewProvider::class) currentFeed: Data) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -90,6 +94,7 @@ fun ShowDetails(currentFeed: Data) {
         Text(text = currentFeed.description ?: "", style = TextStyle(color = Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
         Text(
+            modifier = Modifier.testTag(DETAILS_AUTHOR_TEXT_VIEW_TAG),
             text = if (currentFeed.author?.isBlank()
                     ?.not() == true
             ) "Author: ${currentFeed.author ?: ""}" else "",
@@ -97,6 +102,7 @@ fun ShowDetails(currentFeed: Data) {
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
+            modifier = Modifier.testTag(DETAILS_COUNTRY_TEXT_VIEW_TAG),
             text = if (currentFeed.author?.isBlank()
                     ?.not() == true
             ) "Country: ${currentFeed.country ?: ""}" else "",
