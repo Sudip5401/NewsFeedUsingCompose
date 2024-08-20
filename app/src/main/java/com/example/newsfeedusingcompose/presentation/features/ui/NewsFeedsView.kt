@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,11 +37,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.rememberAsyncImagePainter
 import com.example.newsfeed.data.dataSource.dto.Data
+import com.example.newsfeed.presentation.viewModel.FeedDetailsViewModel
 import com.example.newsfeed.presentation.viewModel.NewsFeedsViewModel
 import com.example.newsfeedusingcompose.R
 import com.example.newsfeedusingcompose.presentation.common.BaseScaffold
@@ -54,19 +57,22 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Composable
 fun NewsFeedsView(
     viewModel: NewsFeedsViewModel,
-    navigateToNextScreen: () -> Unit
+    navigateToNextScreen: (data: Data) -> Unit
 ) {
+
     BaseScaffold(
         screenName = "News",
         shouldShowTopBar = true,
     ) {
-        LoadNewsFeeds(viewModel)
+        LoadNewsFeeds(viewModel) {
+            navigateToNextScreen.invoke(it)
+        }
     }
 }
 
 @ExperimentalCoroutinesApi
 @Composable
-fun LoadNewsFeeds(viewModel: NewsFeedsViewModel) {
+fun LoadNewsFeeds(viewModel: NewsFeedsViewModel, navigateToNextScreen: (data: Data) -> Unit) {
     val moviePagingItems: LazyPagingItems<Data> = viewModel.newsFeeds.collectAsLazyPagingItems()
     var isLoading by remember { mutableStateOf(false) }
 
@@ -78,9 +84,12 @@ fun LoadNewsFeeds(viewModel: NewsFeedsViewModel) {
         LazyColumn {
             item { Spacer(modifier = Modifier.padding(4.dp)) }
             items(moviePagingItems.itemCount) { index ->
+                isLoading = false
                 PopulateItem(
                     data = moviePagingItems.get(index) ?: Data()
-                )
+                ) {
+                    navigateToNextScreen.invoke(it)
+                }
             }
             moviePagingItems.apply {
                 when {
@@ -119,7 +128,9 @@ fun LoadNewsFeeds(viewModel: NewsFeedsViewModel) {
                     }
                 }
             }
-            item { Spacer(modifier = Modifier.padding(4.dp)) }
+            item {
+                Spacer(modifier = Modifier.padding(4.dp))
+            }
         }
         if (isLoading) {
             ProgressIndicator()
@@ -129,9 +140,13 @@ fun LoadNewsFeeds(viewModel: NewsFeedsViewModel) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PopulateItem(data: Data) {
+fun PopulateItem(data: Data, onClick: (data: Data) -> Unit) {
     Card(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier = Modifier
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clickable {
+                onClick.invoke(data)
+            },
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(
             containerColor = Color.White,
