@@ -9,4 +9,9 @@ object RoutingPath {
         const val NEWS_FEEDS = "news_feeds"
         const val FEED_DETAILS = "feed_details"
     }
+
+    object TestTags {
+        const val DETAILS_COUNTRY_TEXT_VIEW_TAG = "DETAILS_COUNTRY_TEXT_VIEW_TAG"
+        const val DETAILS_AUTHOR_TEXT_VIEW_TAG = "DETAILS_AUTHOR_TEXT_VIEW_TAG"
+    }
 }

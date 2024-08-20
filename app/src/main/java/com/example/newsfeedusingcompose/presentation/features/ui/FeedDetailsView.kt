@@ -25,13 +25,13 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.newsfeed.data.dataSource.dto.Data
-import com.example.newsfeed.utils.Constants.Companion.DETAILS_AUTHOR_TEXT_VIEW_TAG
-import com.example.newsfeed.utils.Constants.Companion.DETAILS_COUNTRY_TEXT_VIEW_TAG
 import com.example.newsfeedusingcompose.R
 import com.example.newsfeedusingcompose.presentation.common.BackPressHandler
 import com.example.newsfeedusingcompose.presentation.common.BaseScaffold
 import com.example.newsfeedusingcompose.presentation.core.theme.background
 import com.example.newsfeedusingcompose.presentation.features.ui.previewComponents.DataPreviewProvider
+import com.example.newsfeedusingcompose.utils.RoutingPath.TestTags.DETAILS_AUTHOR_TEXT_VIEW_TAG
+import com.example.newsfeedusingcompose.utils.RoutingPath.TestTags.DETAILS_COUNTRY_TEXT_VIEW_TAG
 import com.example.newsfeedusingcompose.utils.forwardingPainter
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -88,7 +88,7 @@ fun ShowDetails(@PreviewParameter(DataPreviewProvider::class) currentFeed: Data)
                 ),
             contentScale = ContentScale.FillBounds
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         Text(text = currentFeed.title ?: "", style = TextStyle(color = Color.Black))
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = currentFeed.description ?: "", style = TextStyle(color = Color.Black))
