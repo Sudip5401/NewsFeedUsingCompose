@@ -2,7 +2,7 @@ package com.example.newsfeedusingcompose.utils
 
 object RoutingPath {
     object Arg {
-        const val DETAIL_ARG_KEY = "newsData"
+        const val DETAIL_ARG_KEY = "data"
     }
 
     object Route {

@@ -1,6 +1,7 @@
 package com.example.newsfeed.presentation.viewModel
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsfeed.core.Dispatcher
 import com.example.newsfeed.data.dataSource.dto.Data
@@ -13,8 +14,8 @@ import javax.inject.Inject
 //@HiltViewModel(assistedFactory = FeedDetailsViewModel.DetailViewModelFactory::class)
 @HiltViewModel
 class FeedDetailsViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle, dispatcher: Dispatcher
-) : BaseViewModel(dispatcher) {
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
     /*@AssistedFactory
     interface DetailViewModelFactory {

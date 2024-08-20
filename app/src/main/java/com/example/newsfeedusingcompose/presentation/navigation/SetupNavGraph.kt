@@ -1,21 +1,23 @@
 package com.example.jetpackcomposeinitial.nestednavigation
 
+import android.util.JsonReader
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.newsfeed.presentation.viewModel.FeedDetailsViewModel
+import com.example.newsfeed.data.dataSource.dto.Data
 import com.example.newsfeed.presentation.viewModel.NewsFeedsViewModel
 import com.example.newsfeedusingcompose.presentation.features.ui.FeedDetailsView
 import com.example.newsfeedusingcompose.presentation.features.ui.NewsFeedsView
 import com.example.newsfeedusingcompose.presentation.navigation.Screens
 import com.example.newsfeedusingcompose.utils.RoutingPath.Arg.DETAIL_ARG_KEY
-import com.example.newsfeedusingcompose.utils.RoutingPath.Route.FEED_DETAILS
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import java.io.StringReader
 
 @Composable
 fun SetupNavGraph(
@@ -28,12 +30,13 @@ fun SetupNavGraph(
         composable(route = Screens.NewsFeeds.route) {
             val viewModel: NewsFeedsViewModel = hiltViewModel()
             NewsFeedsView(viewModel, navigateToNextScreen = {
-                navController.navigate(Screens.Details.passData(Gson().toJson(it)))
+//                navController.navigate(Screens.Details.passData(Gson().toJson(it)))
+                navController.navigate(Screens.Details.route + "?data=${Gson().toJson(it)}")
             })
         }
 
         composable(
-            route = Screens.Details.route, arguments = listOf(
+            route = Screens.Details.route + "?data={data}", arguments = listOf(
                 navArgument(
                     name = DETAIL_ARG_KEY
                 ) {
@@ -42,9 +45,37 @@ fun SetupNavGraph(
                 },
             )
         ) {
-//            val viewModel: FeedDetailsViewModel = viewModel()
-            FeedDetailsView() {
+            val jsonString = it.arguments?.getString("data")
+            val currentFeed = Gson().fromJson(jsonString, Data::class.java)
 
+            /*val gson = GsonBuilder()
+                .setLenient()
+                .create()
+            val currentFeed = gson.fromJson(jsonString, Data::class.java)*/
+
+            /*val gson = Gson()
+            val reader = JsonReader(StringReader(jsonString))
+            reader.isLenient = true
+            val currentFeed = gson.fromJson(reader, Data::class.java)*/
+
+            /*val gson = GsonBuilder().disableHtmlEscaping().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).setPrettyPrinting().serializeNulls().create();
+
+            Event event=new Event();
+
+            String newJsonStr=JSONUtils.quote(jsonStr);
+
+            System.out.println("Encoded String : " + newJsonStr);
+
+            try {
+
+                val event = gson.fromJson(jsonString,Data.class)
+
+            }catch (Exception e){
+
+                e.printStackTrace();
+*/
+            FeedDetailsView(currentFeed) {
+                navController.popBackStack()
             }
         }
     }

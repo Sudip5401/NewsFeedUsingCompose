@@ -2,7 +2,6 @@ package com.example.newsfeedusingcompose.presentation.features.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
@@ -34,22 +33,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.AsyncImage
 import com.example.newsfeed.data.dataSource.dto.Data
-import com.example.newsfeed.presentation.viewModel.FeedDetailsViewModel
 import com.example.newsfeed.presentation.viewModel.NewsFeedsViewModel
 import com.example.newsfeedusingcompose.R
 import com.example.newsfeedusingcompose.presentation.common.BaseScaffold
 import com.example.newsfeedusingcompose.presentation.common.ErrorMessage
 import com.example.newsfeedusingcompose.presentation.core.theme.background
 import com.example.newsfeedusingcompose.presentation.core.theme.dimGrey
+import com.example.newsfeedusingcompose.utils.forwardingPainter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -62,7 +61,7 @@ fun NewsFeedsView(
 
     BaseScaffold(
         screenName = "News",
-        shouldShowTopBar = true,
+        shouldShowTopBar = true
     ) {
         LoadNewsFeeds(viewModel) {
             navigateToNextScreen.invoke(it)
@@ -162,16 +161,29 @@ fun PopulateItem(data: Data, onClick: (data: Data) -> Unit) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.Top
             ) {
-                Image(
-                    painter = rememberAsyncImagePainter(data.image),
+                AsyncImage(
+                    model = data.image,
+                    error = forwardingPainter(
+                        painter = painterResource(R.drawable.news_placeholder),
+                        alpha = 0.5f
+                    ),
+                    fallback = forwardingPainter(
+                        painter = painterResource(R.drawable.news_placeholder),
+                        alpha = 0.5f
+                    ),
+                    placeholder = forwardingPainter(
+                        painter = painterResource(R.drawable.news_placeholder),
+                        alpha = 0.5f
+                    ),
                     contentDescription = null,
                     modifier = Modifier.size(128.dp),
-                    contentScale = ContentScale.Fit
+                    contentScale = ContentScale.FillBounds
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
+                    modifier = Modifier.padding(top = 24.dp),
                     text = data.description ?: "",
                     style = TextStyle(color = Color.Black),
                     maxLines = 2
@@ -186,7 +198,7 @@ fun PopulateItem(data: Data, onClick: (data: Data) -> Unit) {
             ) {
                 Text(
                     text = data.title ?: "",
-                    style = TextStyle(color = Color.Black),
+                    style = TextStyle(color = Color.White),
                     maxLines = 2,
                     modifier = Modifier
                         .padding(horizontal = 4.dp)
@@ -211,7 +223,7 @@ private fun ProgressIndicator() {
     ) {
         CircularProgressIndicator(
             modifier = Modifier.size(32.dp),
-            color = Color.LightGray,
+            color = Color.White,
             strokeWidth = strokeWidth
         )
     }
