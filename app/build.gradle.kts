@@ -76,8 +76,8 @@ dependencies {
     testImplementation(libs.junit)
 
     // Mockito kotlin
-    testImplementation(libs.mockito.kotlin)
-    testImplementation(libs.mockk.android)
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+    testImplementation("io.mockk:mockk-android:1.13.7")
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
