@@ -41,11 +41,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.example.newsfeed.data.dataSource.dto.Data
-import com.example.newsfeed.presentation.viewModel.NewsFeedsViewModel
 import com.example.newsfeedusingcompose.R
 import com.example.newsfeedusingcompose.presentation.common.BaseScaffold
 import com.example.newsfeedusingcompose.presentation.common.ErrorMessage
@@ -54,12 +54,13 @@ import com.example.newsfeedusingcompose.presentation.core.theme.dimGrey
 import com.example.newsfeedusingcompose.presentation.features.ui.previewComponents.DataPreviewProvider
 import com.example.newsfeedusingcompose.utils.forwardingPainter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun NewsFeedsView(
-    viewModel: NewsFeedsViewModel,
+    state: MutableStateFlow<PagingData<Data>>,
     navigateToNextScreen: (data: Data) -> Unit
 ) {
 
@@ -67,7 +68,7 @@ fun NewsFeedsView(
         screenName = "News",
         shouldShowTopBar = true
     ) {
-        LoadNewsFeeds(viewModel) {
+        LoadNewsFeeds(state) {
             navigateToNextScreen.invoke(it)
         }
     }
@@ -77,10 +78,10 @@ fun NewsFeedsView(
 @ExperimentalCoroutinesApi
 @Composable
 private fun LoadNewsFeeds(
-    viewModel: NewsFeedsViewModel,
+    state: MutableStateFlow<PagingData<Data>>,
     navigateToNextScreen: (data: Data) -> Unit
 ) {
-    val moviePagingItems: LazyPagingItems<Data> = viewModel.newsFeeds.collectAsLazyPagingItems()
+    val moviePagingItems: LazyPagingItems<Data> = state.collectAsLazyPagingItems()
     var isLoading by remember { mutableStateOf(false) }
 
     Box(

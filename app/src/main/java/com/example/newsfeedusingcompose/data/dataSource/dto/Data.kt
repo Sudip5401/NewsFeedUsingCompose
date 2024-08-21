@@ -14,6 +14,6 @@ data class Data(
     val language: String? = null,
     @SerializedName("published_at") val publishedAt: String? = null,
     val source: String? = null,
-    val title: String? = null,
+    var title: String? = null,
     val url: String? = null
 ) : Parcelable
