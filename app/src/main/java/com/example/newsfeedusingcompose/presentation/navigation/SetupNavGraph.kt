@@ -1,18 +1,20 @@
 package com.example.jetpackcomposeinitial.nestednavigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.newsfeed.data.dataSource.dto.Data
 import com.example.newsfeed.presentation.viewModel.NewsFeedsViewModel
 import com.example.newsfeedusingcompose.presentation.features.ui.FeedDetailsView
 import com.example.newsfeedusingcompose.presentation.features.ui.NewsFeedsView
-import com.example.newsfeedusingcompose.presentation.navigation.Screens
+import com.example.newsfeedusingcompose.presentation.features.viewModel.FeedDetailsViewModel
 import com.example.newsfeedusingcompose.presentation.navigation.RoutingPath.Arg.DETAIL_ARG_KEY
+import com.example.newsfeedusingcompose.presentation.navigation.Screens
 import com.example.newsfeedusingcompose.utils.Utils
 import com.google.gson.Gson
 
@@ -48,10 +50,12 @@ fun SetupNavGraph(
                 },
             )
         ) {
-            val jsonString = it.arguments?.getString("data")
-            val currentFeed = Gson().fromJson(jsonString, Data::class.java)
-            FeedDetailsView(currentFeed) {
-                navController.popBackStack()
+            val viewModel = hiltViewModel<FeedDetailsViewModel>()
+            val currentFeed by viewModel.feedDetails.collectAsState()
+            currentFeed?.let {
+                FeedDetailsView(it) {
+                    navController.popBackStack()
+                }
             }
         }
     }

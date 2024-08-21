@@ -56,7 +56,6 @@ fun FeedDetailsView(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun ShowDetails(@PreviewParameter(DataPreviewProvider::class) currentFeed: Data) {
@@ -87,7 +86,10 @@ fun ShowDetails(@PreviewParameter(DataPreviewProvider::class) currentFeed: Data)
             contentScale = ContentScale.FillBounds
         )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen16)))
-        Text(text = currentFeed.title ?: "", style = TextStyle(color = Color.Black, fontSize = Typography.titleLarge.fontSize))
+        Text(
+            text = currentFeed.title ?: "",
+            style = TextStyle(color = Color.Black, fontSize = Typography.titleLarge.fontSize)
+        )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen16)))
         Text(text = currentFeed.description ?: "", style = TextStyle(color = Color.Black))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen8)))
