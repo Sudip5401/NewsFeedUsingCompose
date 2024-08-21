@@ -28,6 +28,7 @@ import com.example.newsfeed.data.dataSource.dto.Data
 import com.example.newsfeedusingcompose.R
 import com.example.newsfeedusingcompose.presentation.common.BackPressHandler
 import com.example.newsfeedusingcompose.presentation.common.BaseScaffold
+import com.example.newsfeedusingcompose.presentation.core.theme.Typography
 import com.example.newsfeedusingcompose.presentation.core.theme.background
 import com.example.newsfeedusingcompose.presentation.features.ui.previewComponents.DataPreviewProvider
 import com.example.newsfeedusingcompose.presentation.navigation.RoutingPath.TestTags.DETAILS_AUTHOR_TEXT_VIEW_TAG
@@ -69,15 +70,12 @@ fun ShowDetails(@PreviewParameter(DataPreviewProvider::class) currentFeed: Data)
             model = currentFeed.image,
             error = forwardingPainter(
                 painter = painterResource(R.drawable.news_placeholder),
-                alpha = 0.5f
             ),
             fallback = forwardingPainter(
                 painter = painterResource(R.drawable.news_placeholder),
-                alpha = 0.5f
             ),
             placeholder = forwardingPainter(
                 painter = painterResource(R.drawable.news_placeholder),
-                alpha = 0.5f
             ),
             contentDescription = null,
             modifier = Modifier
@@ -89,8 +87,8 @@ fun ShowDetails(@PreviewParameter(DataPreviewProvider::class) currentFeed: Data)
             contentScale = ContentScale.FillBounds
         )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen16)))
-        Text(text = currentFeed.title ?: "", style = TextStyle(color = Color.Black))
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen8)))
+        Text(text = currentFeed.title ?: "", style = TextStyle(color = Color.Black, fontSize = Typography.titleLarge.fontSize))
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen16)))
         Text(text = currentFeed.description ?: "", style = TextStyle(color = Color.Black))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen8)))
         Text(

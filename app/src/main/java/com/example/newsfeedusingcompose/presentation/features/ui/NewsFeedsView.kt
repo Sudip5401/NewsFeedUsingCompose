@@ -182,15 +182,12 @@ private fun PopulateItem(
                     model = data.image,
                     error = forwardingPainter(
                         painter = painterResource(R.drawable.news_placeholder),
-                        alpha = 0.5f
                     ),
                     fallback = forwardingPainter(
                         painter = painterResource(R.drawable.news_placeholder),
-                        alpha = 0.5f
                     ),
                     placeholder = forwardingPainter(
                         painter = painterResource(R.drawable.news_placeholder),
-                        alpha = 0.5f
                     ),
                     contentDescription = null,
                     modifier = Modifier.size(dimensionResource(id = R.dimen.dimen128)),
