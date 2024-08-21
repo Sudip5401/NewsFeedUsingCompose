@@ -9,7 +9,7 @@ data class Data(
     val author: String? = null,
     val category: String? = null,
     val country: String? = null,
-    val description: String? = null,
+    var description: String? = null,
     val image: String? = null,
     val language: String? = null,
     @SerializedName("published_at") val publishedAt: String? = null,

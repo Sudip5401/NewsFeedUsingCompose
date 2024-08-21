@@ -18,11 +18,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.newsfeed.data.dataSource.dto.Data
 import com.example.newsfeedusingcompose.R
@@ -63,7 +63,7 @@ fun ShowDetails(@PreviewParameter(DataPreviewProvider::class) currentFeed: Data)
         modifier = Modifier
             .fillMaxSize()
             .background(color = background)
-            .padding(16.dp)
+            .padding(dimensionResource(id = R.dimen.dimen16))
     ) {
         AsyncImage(
             model = currentFeed.image,
@@ -82,17 +82,17 @@ fun ShowDetails(@PreviewParameter(DataPreviewProvider::class) currentFeed: Data)
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(250.dp)
+                .height(dimensionResource(id = R.dimen.dimen250))
                 .clip(
-                    RoundedCornerShape(10.dp)
+                    RoundedCornerShape(dimensionResource(id = R.dimen.dimen10))
                 ),
             contentScale = ContentScale.FillBounds
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen16)))
         Text(text = currentFeed.title ?: "", style = TextStyle(color = Color.Black))
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen8)))
         Text(text = currentFeed.description ?: "", style = TextStyle(color = Color.Black))
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen8)))
         Text(
             modifier = Modifier.testTag(DETAILS_AUTHOR_TEXT_VIEW_TAG),
             text = if (currentFeed.author?.isBlank()
@@ -100,7 +100,7 @@ fun ShowDetails(@PreviewParameter(DataPreviewProvider::class) currentFeed: Data)
             ) "Author: ${currentFeed.author ?: ""}" else "",
             style = TextStyle(color = Color.Black)
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.dimen4)))
         Text(
             modifier = Modifier.testTag(DETAILS_COUNTRY_TEXT_VIEW_TAG),
             text = if (currentFeed.author?.isBlank()

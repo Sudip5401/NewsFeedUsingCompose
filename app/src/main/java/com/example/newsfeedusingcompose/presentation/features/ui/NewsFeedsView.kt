@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -88,7 +89,7 @@ private fun LoadNewsFeeds(
             .background(background)
     ) {
         LazyColumn {
-            item { Spacer(modifier = Modifier.padding(4.dp)) }
+            item { Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen4))) }
             items(moviePagingItems.itemCount) { index ->
                 isLoading = false
                 PopulateItem(
@@ -153,7 +154,10 @@ private fun PopulateItem(
 ) {
     Card(
         modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(
+                horizontal = dimensionResource(id = R.dimen.dimen16),
+                vertical = dimensionResource(id = R.dimen.dimen8)
+            )
             .clickable {
                 onClick.invoke(data)
             },
@@ -189,12 +193,12 @@ private fun PopulateItem(
                         alpha = 0.5f
                     ),
                     contentDescription = null,
-                    modifier = Modifier.size(128.dp),
+                    modifier = Modifier.size(dimensionResource(id = R.dimen.dimen128)),
                     contentScale = ContentScale.FillBounds
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.dimen8)))
                 Text(
-                    modifier = Modifier.padding(top = 24.dp),
+                    modifier = Modifier.padding(top = dimensionResource(id = R.dimen.dimen24)),
                     text = data.description ?: "",
                     style = TextStyle(color = Color.Black),
                     maxLines = 2
@@ -212,9 +216,9 @@ private fun PopulateItem(
                     style = TextStyle(color = Color.White),
                     maxLines = 2,
                     modifier = Modifier
-                        .padding(horizontal = 4.dp)
+                        .padding(horizontal = dimensionResource(id = R.dimen.dimen4))
                         .basicMarquee()
-                        .padding(vertical = 12.dp)
+                        .padding(vertical = dimensionResource(id = R.dimen.dimen12))
 
                 )
             }
@@ -223,11 +227,10 @@ private fun PopulateItem(
 }
 
 
-
 @Preview(showBackground = true)
 @Composable
 private fun ProgressIndicator() {
-    val strokeWidth = 5.dp
+    val strokeWidth = dimensionResource(id = R.dimen.dimen4)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -236,7 +239,7 @@ private fun ProgressIndicator() {
         verticalArrangement = Arrangement.Center
     ) {
         CircularProgressIndicator(
-            modifier = Modifier.size(32.dp),
+            modifier = Modifier.size(dimensionResource(id = R.dimen.dimen32)),
             color = Color.White,
             strokeWidth = strokeWidth
         )

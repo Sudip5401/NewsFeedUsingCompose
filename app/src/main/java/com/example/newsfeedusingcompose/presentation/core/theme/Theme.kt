@@ -70,7 +70,7 @@ fun NewsFeedUsingComposeTheme(
                 )
             } else {
                 systemUiController.setSystemBarsColor(
-                    color = Color.DarkGray
+                    color = Color.White
                 )
             }
         }

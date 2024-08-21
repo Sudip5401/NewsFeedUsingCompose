@@ -1,0 +1,14 @@
+<resources>
+    <dimen name="dimen0">0dp</dimen>
+    <dimen name="dimen4">4dp</dimen>
+    <dimen name="dimen8">8dp</dimen>
+    <dimen name="dimen10">10dp</dimen>
+    <dimen name="dimen12">12dp</dimen>
+    <dimen name="dimen16">16dp</dimen>
+    <dimen name="dimen24">24dp</dimen>
+    <dimen name="dimen32">32dp</dimen>
+    <dimen name="dimen48">48dp</dimen>
+    <dimen name="dimen128">128dp</dimen>
+    <dimen name="dimen200">200dp</dimen>
+    <dimen name="dimen250">250dp</dimen>
+</resources>

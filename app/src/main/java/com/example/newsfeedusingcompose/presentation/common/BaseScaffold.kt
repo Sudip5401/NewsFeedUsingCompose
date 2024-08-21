@@ -3,6 +3,7 @@ package com.example.newsfeedusingcompose.presentation.common
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -64,12 +65,13 @@ fun TopBarView(
     onNavActionButtonClick: (() -> Unit)? = null,
     @PreviewParameter(ViewProvider::class) screenName: String
 ) {
+    val dark = isSystemInDarkTheme()
     /*Here Box is acting as a stack view , items organized as one top of another */
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(color = Color.DarkGray), contentAlignment = Center
+            .background(color = if (dark) Color.DarkGray else Color.White), contentAlignment = Center
     ) {
         if (shouldShowNavigationBack) {
             IconButton(
@@ -94,6 +96,6 @@ fun TopBarView(
         ) {
             Text(text = screenName, modifier = Modifier.align(alignment = Center))
         }
-
     }
 }
+

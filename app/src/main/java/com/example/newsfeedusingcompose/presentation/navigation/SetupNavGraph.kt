@@ -13,6 +13,7 @@ import com.example.newsfeedusingcompose.presentation.features.ui.FeedDetailsView
 import com.example.newsfeedusingcompose.presentation.features.ui.NewsFeedsView
 import com.example.newsfeedusingcompose.presentation.navigation.Screens
 import com.example.newsfeedusingcompose.utils.RoutingPath.Arg.DETAIL_ARG_KEY
+import com.example.newsfeedusingcompose.utils.Utils
 import com.google.gson.Gson
 
 @Composable
@@ -26,7 +27,14 @@ fun SetupNavGraph(
         composable(route = Screens.NewsFeeds.route) {
             val viewModel: NewsFeedsViewModel = hiltViewModel()
             NewsFeedsView(viewModel, navigateToNextScreen = {
-                navController.navigate(Screens.Details.route + "?data=${Gson().toJson(it)}")
+                navController.navigate(
+                    Screens.Details.route + "?data=${
+                        Gson().toJson(it.apply {
+                            /*Applied due to com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException*/
+                            description = Utils.removeSpecialCharacters(description ?: "")
+                        })
+                    }"
+                )
             })
         }
 
