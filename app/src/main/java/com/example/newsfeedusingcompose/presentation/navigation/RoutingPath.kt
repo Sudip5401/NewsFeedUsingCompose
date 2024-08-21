@@ -1,4 +1,4 @@
-package com.example.newsfeedusingcompose.utils
+package com.example.newsfeedusingcompose.presentation.navigation
 
 object RoutingPath {
     object Arg {

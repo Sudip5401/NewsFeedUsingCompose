@@ -9,7 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.newsfeed.data.dataSource.dto.Data
 import com.example.newsfeedusingcompose.presentation.core.theme.NewsFeedUsingComposeTheme
 import com.example.newsfeedusingcompose.presentation.features.ui.FeedDetailsView
-import com.example.newsfeedusingcompose.utils.RoutingPath.TestTags.DETAILS_COUNTRY_TEXT_VIEW_TAG
+import com.example.newsfeedusingcompose.presentation.navigation.RoutingPath.TestTags.DETAILS_COUNTRY_TEXT_VIEW_TAG
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

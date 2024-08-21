@@ -30,8 +30,8 @@ import com.example.newsfeedusingcompose.presentation.common.BackPressHandler
 import com.example.newsfeedusingcompose.presentation.common.BaseScaffold
 import com.example.newsfeedusingcompose.presentation.core.theme.background
 import com.example.newsfeedusingcompose.presentation.features.ui.previewComponents.DataPreviewProvider
-import com.example.newsfeedusingcompose.utils.RoutingPath.TestTags.DETAILS_AUTHOR_TEXT_VIEW_TAG
-import com.example.newsfeedusingcompose.utils.RoutingPath.TestTags.DETAILS_COUNTRY_TEXT_VIEW_TAG
+import com.example.newsfeedusingcompose.presentation.navigation.RoutingPath.TestTags.DETAILS_AUTHOR_TEXT_VIEW_TAG
+import com.example.newsfeedusingcompose.presentation.navigation.RoutingPath.TestTags.DETAILS_COUNTRY_TEXT_VIEW_TAG
 import com.example.newsfeedusingcompose.utils.forwardingPainter
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

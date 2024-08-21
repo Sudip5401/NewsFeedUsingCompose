@@ -12,7 +12,7 @@ import com.example.newsfeed.presentation.viewModel.NewsFeedsViewModel
 import com.example.newsfeedusingcompose.presentation.features.ui.FeedDetailsView
 import com.example.newsfeedusingcompose.presentation.features.ui.NewsFeedsView
 import com.example.newsfeedusingcompose.presentation.navigation.Screens
-import com.example.newsfeedusingcompose.utils.RoutingPath.Arg.DETAIL_ARG_KEY
+import com.example.newsfeedusingcompose.presentation.navigation.RoutingPath.Arg.DETAIL_ARG_KEY
 import com.example.newsfeedusingcompose.utils.Utils
 import com.google.gson.Gson
 

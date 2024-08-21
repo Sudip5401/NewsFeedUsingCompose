@@ -10,6 +10,7 @@ import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -39,7 +40,7 @@ class NewsFeedsViewModelUnitTest {
             newsFeedsViewModel.fetchFeeds()
             coVerify(exactly = 1) { newsFeedUseCase() }
 
-            assert(newsFeedsViewModel.newsFeeds.value != null)
+            assert(newsFeedsViewModel.newsFeeds.first() != null)
         }
     }
 

@@ -1,7 +1,7 @@
 package com.example.newsfeedusingcompose.presentation.navigation
 
-import com.example.newsfeedusingcompose.utils.RoutingPath.Route.FEED_DETAILS
-import com.example.newsfeedusingcompose.utils.RoutingPath.Route.NEWS_FEEDS
+import com.example.newsfeedusingcompose.presentation.navigation.RoutingPath.Route.FEED_DETAILS
+import com.example.newsfeedusingcompose.presentation.navigation.RoutingPath.Route.NEWS_FEEDS
 
 sealed class Screens(val route: String) {
     data object NewsFeeds : Screens(route = NEWS_FEEDS)

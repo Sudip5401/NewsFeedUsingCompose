@@ -74,20 +74,10 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.ui.test.junit4)
     androidTestImplementation(platform(libs.androidx.compose.bom.v20230300))
     testImplementation(libs.junit)
-    testImplementation(libs.junit.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-    debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.ui.test.manifest)
 
-    // MOCKITO-KOTLIN
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-    testImplementation("io.mockk:mockk-android:1.13.7")
-    testImplementation(libs.mockk.mockk)
-
-    // COROUTINES TEST
-    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
-    testImplementation(libs.kotlinx.coroutines.test)
+    // Mockito kotlin
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockk.android)
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
