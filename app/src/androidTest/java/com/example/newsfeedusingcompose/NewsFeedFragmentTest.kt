@@ -7,9 +7,9 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.newsfeed.data.dataSource.dto.Data
-import com.example.newsfeed.utils.Constants.Companion.DETAILS_COUNTRY_TEXT_VIEW_TAG
 import com.example.newsfeedusingcompose.presentation.core.theme.NewsFeedUsingComposeTheme
 import com.example.newsfeedusingcompose.presentation.features.ui.FeedDetailsView
+import com.example.newsfeedusingcompose.utils.RoutingPath.TestTags.DETAILS_COUNTRY_TEXT_VIEW_TAG
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -27,7 +27,7 @@ class NewsFeedFragmentTest {
     }
 
     @Test
-    fun given_title_should_be_displayed_in_Feed_Details_Screen() {
+    fun given_title_should_be_displayed_in_feed_details_screen() {
         /*Load composable*/
         composeTestRule.setContent {
             NewsFeedUsingComposeTheme {
@@ -36,7 +36,7 @@ class NewsFeedFragmentTest {
                 }
             }
         }
-        /*assertIsDisplayed - Assertion*/
+        /*assertIsExists - Assertion*/
         composeTestRule
             .onNodeWithText("Details")
             .assertIsDisplayed()
@@ -49,7 +49,7 @@ class NewsFeedFragmentTest {
     }
 
     @Test
-    fun check_Author_Is_Blank_If_Data_Is_empty() {
+    fun check_author_is_blank_if_data_is_empty() {
         /*Load composable*/
         composeTestRule.setContent {
             NewsFeedUsingComposeTheme {
@@ -58,7 +58,7 @@ class NewsFeedFragmentTest {
                 }
             }
         }
-        /*assertIsDisplayed - Assertion*/
+        /*assertTextEquals - Assertion*/
         composeTestRule.onNodeWithTag(DETAILS_COUNTRY_TEXT_VIEW_TAG).assertTextEquals("")
     }
 }

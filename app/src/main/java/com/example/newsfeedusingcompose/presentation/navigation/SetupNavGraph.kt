@@ -1,6 +1,5 @@
 package com.example.jetpackcomposeinitial.nestednavigation
 
-import android.util.JsonReader
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -14,10 +13,7 @@ import com.example.newsfeedusingcompose.presentation.features.ui.FeedDetailsView
 import com.example.newsfeedusingcompose.presentation.features.ui.NewsFeedsView
 import com.example.newsfeedusingcompose.presentation.navigation.Screens
 import com.example.newsfeedusingcompose.utils.RoutingPath.Arg.DETAIL_ARG_KEY
-import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import java.io.StringReader
 
 @Composable
 fun SetupNavGraph(
@@ -30,13 +26,12 @@ fun SetupNavGraph(
         composable(route = Screens.NewsFeeds.route) {
             val viewModel: NewsFeedsViewModel = hiltViewModel()
             NewsFeedsView(viewModel, navigateToNextScreen = {
-//                navController.navigate(Screens.Details.passData(Gson().toJson(it)))
                 navController.navigate(Screens.Details.route + "?data=${Gson().toJson(it)}")
             })
         }
 
         composable(
-            route = Screens.Details.route + "?data={data}", arguments = listOf(
+            route = Screens.Details.route + "?data={$DETAIL_ARG_KEY}", arguments = listOf(
                 navArgument(
                     name = DETAIL_ARG_KEY
                 ) {
@@ -47,33 +42,6 @@ fun SetupNavGraph(
         ) {
             val jsonString = it.arguments?.getString("data")
             val currentFeed = Gson().fromJson(jsonString, Data::class.java)
-
-            /*val gson = GsonBuilder()
-                .setLenient()
-                .create()
-            val currentFeed = gson.fromJson(jsonString, Data::class.java)*/
-
-            /*val gson = Gson()
-            val reader = JsonReader(StringReader(jsonString))
-            reader.isLenient = true
-            val currentFeed = gson.fromJson(reader, Data::class.java)*/
-
-            /*val gson = GsonBuilder().disableHtmlEscaping().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).setPrettyPrinting().serializeNulls().create();
-
-            Event event=new Event();
-
-            String newJsonStr=JSONUtils.quote(jsonStr);
-
-            System.out.println("Encoded String : " + newJsonStr);
-
-            try {
-
-                val event = gson.fromJson(jsonString,Data.class)
-
-            }catch (Exception e){
-
-                e.printStackTrace();
-*/
             FeedDetailsView(currentFeed) {
                 navController.popBackStack()
             }

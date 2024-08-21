@@ -1,6 +1,5 @@
 package com.example.newsfeed.presentation.viewModel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -24,7 +23,7 @@ class NewsFeedsViewModel @Inject constructor(
         fetchFeeds()
     }
 
-    private fun fetchFeeds() =
+    internal fun fetchFeeds() =
         launchOnIO {
             newsFeedsUseCase.invoke().distinctUntilChanged()
                 .cachedIn(viewModelScope).collect {

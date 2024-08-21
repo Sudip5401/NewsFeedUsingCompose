@@ -54,6 +54,7 @@ android {
 
 dependencies {
 
+    // Compose dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -65,28 +66,30 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.paging.common.android)
 
-    testImplementation(libs.junit)
+    // UI, Unit Test
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    // UI Test
-//    androidTestImplementation(libs.androidx.espresso.core)
-//    androidTestImplementation(libs.espresso.contrib)
-//    androidTestImplementation(libs.ui.test.junit4)
-// Needed for createComposeRule(), but not for createAndroidComposeRule<YourActivity>():
-//    debugImplementation(libs.ui.test.manifest)
-//    androidTestImplementation(libs.androidx.compose.ui.ui.test.junit4)
-
-    // Unit Test
-//    testImplementation(libs.core.testing)
-//    testImplementation(libs.mockk.mockk)
-//    testImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.androidx.espresso.core.v351)
+    androidTestImplementation(libs.androidx.compose.ui.ui.test.junit4)
     androidTestImplementation(platform(libs.androidx.compose.bom.v20230300))
+    testImplementation(libs.junit)
+    testImplementation(libs.junit.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.ui.test.manifest)
 
-// Navigation
+    // MOCKITO-KOTLIN
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+    testImplementation("io.mockk:mockk-android:1.13.7")
+    testImplementation(libs.mockk.mockk)
+
+    // COROUTINES TEST
+    testImplementation(libs.jetbrains.kotlinx.coroutines.test)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // Navigation
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
