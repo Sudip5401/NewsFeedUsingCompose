@@ -5,11 +5,14 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.paging.PagingData
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.newsfeed.data.dataSource.dto.Data
 import com.example.newsfeedusingcompose.presentation.core.theme.NewsFeedUsingComposeTheme
 import com.example.newsfeedusingcompose.presentation.features.ui.FeedDetailsView
+import com.example.newsfeedusingcompose.presentation.features.ui.NewsFeedsView
 import com.example.newsfeedusingcompose.presentation.navigation.RoutingPath.TestTags.DETAILS_COUNTRY_TEXT_VIEW_TAG
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -24,6 +27,22 @@ class NewsFeedFragmentTest {
 
     @Before
     fun setUp() {
+    }
+
+    @Test
+    fun given_title_should_be_displayed_in_news_list_screen() {
+        /*Load composable*/
+        composeTestRule.setContent {
+            NewsFeedUsingComposeTheme {
+                NewsFeedsView(state = MutableStateFlow(value = PagingData.empty())) {
+
+                }
+            }
+        }
+        /*assertIsExists - Assertion*/
+        composeTestRule
+            .onNodeWithText("News")
+            .assertIsDisplayed()
     }
 
     @Test

@@ -28,11 +28,12 @@ fun SetupNavGraph(
     ) {
         composable(route = Screens.NewsFeeds.route) {
             val viewModel: NewsFeedsViewModel = hiltViewModel()
-            NewsFeedsView(viewModel, navigateToNextScreen = {
+            NewsFeedsView(viewModel.newsFeeds, navigateToNextScreen = {
                 navController.navigate(
                     Screens.Details.route + "?data=${
                         Gson().toJson(it.apply {
                             /*Applied due to com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException*/
+                            title = Utils.removeSpecialCharacters(title ?: "")
                             description = Utils.removeSpecialCharacters(description ?: "")
                         })
                     }"
