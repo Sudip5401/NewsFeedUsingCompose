@@ -28,7 +28,8 @@ fun SetupNavGraph(
     ) {
         composable(route = Screens.NewsFeeds.route) {
             val viewModel: NewsFeedsViewModel = hiltViewModel()
-            NewsFeedsView(viewModel.newsFeeds, navigateToNextScreen = {
+            val feedsLazyData = viewModel.newsFeeds
+            NewsFeedsView(feedsLazyData, navigateToNextScreen = {
                 navController.navigate(
                     Screens.Details.route + "?data=${
                         Gson().toJson(it.apply {

@@ -3,10 +3,10 @@ package com.example.newsfeedusingcompose.repository
 import androidx.paging.PagingSource
 import com.example.newsfeed.data.dataSource.ApiService
 import com.example.newsfeed.data.dataSource.dto.Data
-import com.example.newsfeed.data.dataSource.dto.Feed
-import com.example.newsfeed.data.dataSource.dto.Pagination
 import com.example.newsfeedusingcompose.data.dataSource.NewsPagingSource
-import com.example.newsfeedusingcompose.utils.UtilTests
+import com.example.newsfeedusingcompose.utils.TestUtil
+import com.example.newsfeedusingcompose.utils.TestUtil.feedResponse
+import com.example.newsfeedusingcompose.utils.TestUtil.modifiedResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -55,7 +55,7 @@ class UseCaseUnitTest {
     fun `news paging source prepend - success`() = runBlocking {
         given(apiService.getAllNews(any(), any())).willReturn(feedResponse)
         val expectedResult = PagingSource.LoadResult.Page(
-            data = UtilTests.dummyFeedResponse.data ?: mutableListOf(),
+            data = TestUtil.dummyFeedResponse.data ?: mutableListOf(),
             prevKey = -1,
             nextKey = 20
         )
@@ -86,19 +86,6 @@ class UseCaseUnitTest {
                     placeholdersEnabled = false
                 )
             )
-        )
-    }
-
-    companion object {
-        val feedResponse = Feed(
-            data = UtilTests.dummyFeedResponseNext.data,
-            pagination = Pagination(limit = 1, offset = 0, count = 0, total = 100)
-        )
-
-        val modifiedResponse = Feed(
-            data = UtilTests.dummyFeedResponseNext.data?.map { data -> Data(author = data.author) }
-                ?.toMutableList(),
-            pagination = Pagination(limit = 1, offset = 1, count = 0, total = 100)
         )
     }
 }

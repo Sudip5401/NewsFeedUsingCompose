@@ -13,5 +13,6 @@ object RoutingPath {
     object TestTags {
         const val DETAILS_COUNTRY_TEXT_VIEW_TAG = "DETAILS_COUNTRY_TEXT_VIEW_TAG"
         const val DETAILS_AUTHOR_TEXT_VIEW_TAG = "DETAILS_AUTHOR_TEXT_VIEW_TAG"
+        const val FEEDS_LIST_VIEW_TAG = "FEEDS_LIST_VIEW_TAG"
     }
 }
