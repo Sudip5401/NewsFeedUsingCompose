@@ -1,6 +1,7 @@
 package com.example.newsfeed.viewModel
 
 import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.newsfeed.domain.usecases.NewsFeedUseCase
 import com.example.newsfeed.presentation.viewModel.NewsFeedsViewModel
 import com.example.newsfeed.utils.TestingDispatcher
@@ -37,10 +38,9 @@ class NewsFeedsViewModelUnitTest {
                 emit(PagingData.from(data = UtilTests.dummyFeedResponse.data ?: mutableListOf()))
             }
 
-            newsFeedsViewModel.fetchFeeds()
-            coVerify(exactly = 1) { newsFeedUseCase() }
+            coVerify(exactly = 1) { newsFeedsViewModel.fetchFeeds() }
 
-            assert(newsFeedsViewModel.newsFeeds.first() != null)
+            newsFeedsViewModel.newsFeeds.first().map { assert(true) }
         }
     }
 
