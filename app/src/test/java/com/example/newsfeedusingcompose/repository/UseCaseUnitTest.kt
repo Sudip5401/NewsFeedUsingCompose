@@ -75,13 +75,13 @@ class UseCaseUnitTest {
         given(apiService.getAllNews(any(), any())).willReturn(modifiedResponse)
         val expectedResult = PagingSource.LoadResult.Page(
             data = feedResponse.data?.map { data -> Data(author = data.author) } ?: mutableListOf(),
-            prevKey = -1,
-            nextKey = 20
+            prevKey = null,
+            nextKey = 21
         )
         assertEquals(
             expectedResult, newsPagingSource.load(
                 PagingSource.LoadParams.Refresh(
-                    key = 0,
+                    key = 1,
                     loadSize = 1,
                     placeholdersEnabled = false
                 )

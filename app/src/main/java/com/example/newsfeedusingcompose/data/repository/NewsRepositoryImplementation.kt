@@ -15,7 +15,7 @@ class NewsRepositoryImplementation @Inject constructor(private val api: ApiServi
     override suspend fun getAllNews(): Flow<PagingData<Data>> =
         Pager(
             config = PagingConfig(
-                pageSize = MAX_PAGE_SIZE, prefetchDistance = 2
+                pageSize = MAX_PAGE_SIZE, prefetchDistance = 10
             ),
             pagingSourceFactory = {
                 NewsPagingSource(api)
