@@ -25,7 +25,7 @@ class NewsFeedsViewModel @Inject constructor(
 
     internal fun fetchFeeds() =
         launchOnIO {
-            newsFeedsUseCase.invoke().distinctUntilChanged()
+            newsFeedsUseCase().distinctUntilChanged()
                 .cachedIn(viewModelScope).collect {
                     _newsFeeds.value = it
                 }

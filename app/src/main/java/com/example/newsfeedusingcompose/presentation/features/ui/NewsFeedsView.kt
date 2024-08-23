@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -52,6 +53,7 @@ import com.example.newsfeedusingcompose.presentation.common.ErrorMessage
 import com.example.newsfeedusingcompose.presentation.core.theme.background
 import com.example.newsfeedusingcompose.presentation.core.theme.dimGrey
 import com.example.newsfeedusingcompose.presentation.features.ui.previewComponents.DataPreviewProvider
+import com.example.newsfeedusingcompose.presentation.navigation.RoutingPath.TestTags.FEEDS_LIST_VIEW_TAG
 import com.example.newsfeedusingcompose.utils.forwardingPainter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -89,7 +91,7 @@ private fun LoadNewsFeeds(
             .fillMaxSize()
             .background(background)
     ) {
-        LazyColumn {
+        LazyColumn(modifier = Modifier.testTag(FEEDS_LIST_VIEW_TAG)) {
             item { Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.dimen4))) }
             items(moviePagingItems.itemCount) { index ->
                 isLoading = false
